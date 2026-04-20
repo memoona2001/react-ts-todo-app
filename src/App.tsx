@@ -1,83 +1,78 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import "./App.css";
 
 type Todo = {
   id: number;
   text: string;
-  done: boolean;
+  completed: boolean;
 };
 
 function App() {
-  const [input, setInput] = useState<string>("");
-
+  // ✅ Lazy init (important fix)
   const [todos, setTodos] = useState<Todo[]>(() => {
     const saved = localStorage.getItem("todos");
     return saved ? JSON.parse(saved) : [];
   });
 
+  const [input, setInput] = useState<string>("");
+
+  // ✅ Save whenever todos change
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
   const addTodo = () => {
-    if (!input.trim()) return;
+    if (input.trim() === "") return;
 
     const newTodo: Todo = {
       id: Date.now(),
       text: input,
-      done: false,
+      completed: false,
     };
 
-    setTodos([...todos, newTodo]);
+    setTodos((prev) => [...prev, newTodo]);
     setInput("");
   };
 
+  const deleteTodo = (id: number) => {
+    setTodos((prev) => prev.filter((todo) => todo.id !== id));
+  };
+
   const toggleTodo = (id: number) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, done: !todo.done } : todo
+    setTodos((prev) =>
+      prev.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
     );
   };
 
-  const deleteTodo = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
+  const tasksLeft = todos.filter((t) => !t.completed).length;
 
   return (
-    <div className="container">
-      <div className="card">
-        <h2>TypeScript Todo App</h2>
+    <div className="app">
+      <h1>TypeScript Todo App</h1>
 
-        <div className="inputRow">
-          <input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Add a task..."
-          />
+      <p className="counter">
+        {tasksLeft} task{tasksLeft !== 1 ? "s" : ""} left
+      </p>
 
-          <button onClick={addTodo}>Add</button>
-        </div>
-
-        <ul>
-          {todos.map((todo) => (
-            <li key={todo.id} className="todoItem">
-              <span
-                onClick={() => toggleTodo(todo.id)}
-                className={todo.done ? "todoText done" : "todoText"}
-              >
-                {todo.text}
-              </span>
-
-              <button
-                className="deleteBtn"
-                onClick={() => deleteTodo(todo.id)}
-              >
-                ❌
-              </button>
-            </li>
-          ))}
-        </ul>
+      <div className="input-section">
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Enter a task..."
+        />
+        <button onClick={addTodo}>Add</button>
       </div>
+
+      <ul>
+        {todos.map((todo) => (
+          <li key={todo.id} className={todo.completed ? "done" : ""}>
+            <span onClick={() => toggleTodo(todo.id)}>{todo.text}</span>
+            <button onClick={() => deleteTodo(todo.id)}>X</button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

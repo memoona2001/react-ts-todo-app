@@ -1,63 +1,102 @@
 body {
   margin: 0;
-  font-family: Arial;
-  background: #0f172a;
-  color: white;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  font-family: Arial, sans-serif;
 }
 
-.container {
-  display: flex;
-  justify-content: center;
-  margin-top: 80px;
+.app {
+  max-width: 420px;
+  margin: 80px auto;
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  text-align: center;
 }
 
-.card {
-  background: #1e293b;
-  padding: 20px;
-  border-radius: 12px;
-  width: 400px;
+h1 {
+  margin-bottom: 10px;
+  color: #333;
 }
 
-.inputRow {
+.counter {
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: #666;
+}
+
+.input-section {
   display: flex;
   gap: 10px;
+  margin-bottom: 20px;
 }
 
 input {
   flex: 1;
-  padding: 8px;
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  transition: 0.2s;
+}
+
+input:focus {
+  border-color: #764ba2;
 }
 
 button {
-  padding: 8px 12px;
+  padding: 10px 14px;
+  border: none;
+  background: #764ba2;
+  color: white;
+  border-radius: 8px;
   cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #5a3d91;
 }
 
 ul {
+  list-style: none;
   padding: 0;
-  margin-top: 20px;
+  margin: 0;
 }
 
-.todoItem {
+li {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
-  padding: 10px;
-  background: #334155;
+  align-items: center;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  background: #f7f7f7;
   border-radius: 8px;
+  transition: 0.2s;
 }
 
-.todoText {
+li:hover {
+  background: #eee;
+}
+
+li span {
   cursor: pointer;
+  flex: 1;
+  text-align: left;
 }
 
-.done {
+.done span {
   text-decoration: line-through;
-  opacity: 0.5;
+  color: gray;
 }
 
-.deleteBtn {
+li button {
   background: red;
-  border: none;
-  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+li button:hover {
+  background: darkred;
 }
