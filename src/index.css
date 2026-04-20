@@ -1,0 +1,63 @@
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #0f172a;
+  color: white;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+}
+
+.card {
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 12px;
+  width: 400px;
+}
+
+.inputRow {
+  display: flex;
+  gap: 10px;
+}
+
+input {
+  flex: 1;
+  padding: 8px;
+}
+
+button {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+ul {
+  padding: 0;
+  margin-top: 20px;
+}
+
+.todoItem {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #334155;
+  border-radius: 8px;
+}
+
+.todoText {
+  cursor: pointer;
+}
+
+.done {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.deleteBtn {
+  background: red;
+  border: none;
+  color: white;
+}
